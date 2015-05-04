@@ -151,14 +151,22 @@ func openBackup(f string, maxLines, maxRotate int) (*os.File, error) {
 
 // Rotate the logs
 func (l *FileLogger) rotate() error {
+
+	var openErr error
+
 	oldFile := l.out
+	oldFile.Close()
 	file, err := doRotate(l.out.Name(), l.maxRotate)
 	if err != nil {
+		l.out, openErr = os.OpenFile(l.out.Name(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+		if openErr != nil {
+			return fmt.Errorf("Error rotating logs and reverting the previous log: %s", openErr)
+		}
 		return fmt.Errorf("Error rotating logs: %s", err)
 	}
 	l.curLines = 0
 	l.out = file
-	oldFile.Close()
+	//oldFile.Close()
 	return nil
 }
 

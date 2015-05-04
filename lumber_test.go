@@ -150,3 +150,22 @@ func TestMultiIS(t *testing.T) {
 		t.Fatal("Logger should return fatal")
 	}
 }
+
+func TestRotation(t *testing.T) {
+
+	log, err := NewRotateLogger("output.log", 10, 2)
+
+	log.Level(TRACE)
+	if err != nil {
+		t.Fatal("Error")
+	}
+
+	for i := 0; i < 11; i++ {
+		log.Debug("test")
+	}
+
+	//L.Level(lumber.TRACE)
+	//L.Trace("sdlfj")
+	//juvolog.InitLog("ApiApp.log")
+
+}
