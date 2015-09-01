@@ -56,12 +56,12 @@ func (l *ConsoleLogger) output(msg *Message) {
 }
 
 // Sets the available levels for this logger
-func (l *ConsoleLogger) SetLevels(lvls []string) {
+/*func (l *ConsoleLogger) SetLevels(lvls []string) {
 	if lvls[len(lvls)-1] != "*LOG*" {
 		lvls = append(lvls, "*LOG*")
 	}
 	l.levels = lvls
-}
+}*/
 
 // Sets the output level for this logger
 func (l *ConsoleLogger) Level(o int) {

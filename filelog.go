@@ -232,6 +232,16 @@ func (l *FileLogger) printLog(msg *Message) {
 	buf = append(buf, ' ')
 	buf = append(buf, l.levels[msg.level]...)
 	buf = append(buf, ' ')
+
+	/*pc, file, line, ok := runtime.Caller(2)
+	funcName := runtime.FuncForPC(pc).Name()
+	if !ok {
+		buf = append(buf, fmt.Sprintf("%s %s:%d", file, funcName, line)...)
+	} else {
+		//buf = append(buf, "Unknown"...)
+	}
+	buf = append(buf, ' ')*/
+
 	buf = append(buf, msg.m...)
 	if len(msg.m) > 0 && msg.m[len(msg.m)-1] != '\n' {
 		buf = append(buf, '\n')
@@ -242,12 +252,12 @@ func (l *FileLogger) printLog(msg *Message) {
 
 // Sets the available levels for this logger
 // TODO: append a *LOG* level
-func (l *FileLogger) SetLevels(lvls []string) {
+/*func (l *FileLogger) SetLevels(lvls []string) {
 	if lvls[len(lvls)-1] != "*LOG*" {
 		lvls = append(lvls, "*LOG*")
 	}
 	l.levels = lvls
-}
+}*/
 
 // Sets the output level for this logger
 func (l *FileLogger) Level(o int) {
